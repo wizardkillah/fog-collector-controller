@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+*.db
+firmware/test/test_core
+firmware/test/*.exe
+token.env
+config.toml

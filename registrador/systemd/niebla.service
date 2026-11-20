@@ -1,0 +1,24 @@
+[Unit]
+Description=Niebla - registrador local
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=niebla
+Group=niebla
+EnvironmentFile=/etc/niebla/token.env
+ExecStart=/opt/niebla/venv/bin/python -m niebla servicio -c /etc/niebla/config.toml
+Restart=on-failure
+RestartSec=10
+# Endurecimiento: sin root, sistema de archivos de sólo lectura salvo los datos
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/var/lib/niebla
+SupplementaryGroups=dialout
+MemoryMax=300M
+
+[Install]
+WantedBy=multi-user.target

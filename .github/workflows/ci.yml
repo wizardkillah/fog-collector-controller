@@ -1,0 +1,29 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  firmware:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Núcleo del PLC (AddressSanitizer + UBSan)
+        run: make -C firmware/test test
+      - name: Sintaxis del sketch (principal y secundario)
+        run: make -C firmware/test sintaxis
+
+  registrador:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install "./registrador[pruebas]"
+      - run: python -m pytest
+        working-directory: registrador

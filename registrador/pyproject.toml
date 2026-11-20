@@ -1,0 +1,12 @@
+[project]
+name = "niebla"
+version = "1.0.0"
+description = "Registrador local de Niebla (Raspberry Pi) para PLC Arduino Opta"
+requires-python = ">=3.11"
+dependencies = ["pymodbus>=3.10,<4", "flask>=3.0,<4"]
+
+[project.optional-dependencies]
+pruebas = ["pytest>=8"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

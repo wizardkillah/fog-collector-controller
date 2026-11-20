@@ -1,0 +1,43 @@
+# Niebla — configuración del registrador
+# Copiar a /etc/niebla/config.toml. El token de la API va en la variable
+# de entorno NIEBLA_TOKEN (archivo /etc/niebla/token.env, modo 600).
+
+[sitio]
+nombre = "Piloto Niebla 36 m2"
+modo = "campo"            # "campo" o "simulacion" (la simulación usa otra base de datos)
+intervalo_s = 5           # sondeo de los PLC
+base_datos = "/var/lib/niebla/niebla.db"
+
+[[plc]]
+nombre = "principal"
+host = "192.168.50.10"
+puerto = 502
+bancos = [1, 2]
+
+# Para 72 m² agregar:
+# [[plc]]
+# nombre = "secundario"
+# host = "192.168.50.11"
+# bancos = [3, 4]
+
+# Calibración de cada balancín por aforo (ver docs/pruebas_banco.md).
+# Mientras ml_por_pulso no esté definido, el sistema registra pulsos y NO litros.
+[[banco]]
+id = 1
+area_m2 = 18.0
+# ml_por_pulso = 50.0
+
+[[banco]]
+id = 2
+area_m2 = 18.0
+# ml_por_pulso = 50.0
+
+[energia]
+habilitada = false        # true si hay un EPEVER Tracer AN por USB-RS485
+puerto = "/dev/ttyUSB0"
+direccion = 1
+
+[api]
+habilitada = true
+host = "0.0.0.0"          # red local del tablero; no exponer a internet
+puerto = 8080
