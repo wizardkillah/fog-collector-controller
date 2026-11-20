@@ -8,5 +8,8 @@ dependencies = ["pymodbus>=3.10,<4", "flask>=3.0,<4"]
 [project.optional-dependencies]
 pruebas = ["pytest>=8"]
 
+[tool.setuptools]
+packages = ["niebla"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
